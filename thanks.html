@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Redirecting to Ace_Web.com</title>
+  <style>
+    body {
+      background-image: url('https://i.redd.it/w8otufcuwfkb1.jpg');
+      height: 100vh; /* force body to be exactly viewport height */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  ;
+font-family: Arial, sans-serif;
+color: white;
+  text-shadow: 
+    -1px -1px 0 black,
+     1px -1px 0 black,
+    -1px  1px 0 black,
+     1px  1px 0 black;	
+
+
+	font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      flex-direction: column;
+      text-align: center;
+    }
+
+    .spinner {
+     
+	 border: 6px solid #333;
+      border-top: 6px solid white;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      animation: spin 1s linear infinite;
+      margin-top: 20px;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+  <h1>Please wait...</h1>
+  <p>You are being redirected now.</p>
+  <div class="spinner"></div>
+
+  <script>
+    // Redirect after 5 seconds (5000 ms)
+    setTimeout(function() {
+      window.location.href = "/Ace_Web.com.html"; 
+      // 👆 change this to your real destination page
+    }, 3000);
+  </script>
+</body>
+</html>
